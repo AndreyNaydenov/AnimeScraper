@@ -1,4 +1,4 @@
-import model
+import scrape
 import sys
 
 if len(sys.argv) != 5:
@@ -17,4 +17,4 @@ except Exception:
 
 folder = sys.argv[4]
 
-model.main(main_url, first_page, last_page, folder)
+scrape.main(main_url, first_page, last_page, folder)

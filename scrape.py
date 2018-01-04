@@ -1,8 +1,10 @@
 from urllib.request import urlopen
+from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 import os
 
 count = 0
+url = ""
 
 def get_count():
     global count
@@ -15,7 +17,16 @@ def get_count():
 
 def img_download(url, folder, filename):
     global count
-    img = urlopen(url).read()
+
+    try:
+        img = urlopen(url).read()
+    except HTTPError:
+        print("Couldn't download " + str(url))
+        return
+    except ValueError:
+        print("Value error. Url: " + str(url))
+        return
+    
     name = folder + "/" + filename + ".jpg"
     with open(name, "wb") as f:
         f.write(img)
@@ -37,12 +48,12 @@ def get_all_urls_on_page(main_url, number):
         return []
     li_list = ul.findChildren("li")
     for li in li_list:
-        a = li.p.a
         try:
+            a = li.p.findChildren("a")[-1]
             urls.append(str(a['href']))
         except Exception:
             errors += 1
-    print("Got " + str(len(urls)) + " from page #" + str(number) + ". Couldn't get " + str(errors) + " member pics.")
+    print("Got " + str(len(urls)) + " from page #" + str(number) + ". Couldn't get " + str(errors) + " pics.")
     return urls
 
 def download_all(urls, folder):
@@ -61,6 +72,8 @@ def get_all_urls(main_url, first_page, last_page):
     return urls
 
 def main(main_url, first_page, last_page, folder_name):
+    global url
+    url = main_url
     get_count()
 
     if not os.path.exists(folder_name):
@@ -72,8 +85,8 @@ def main(main_url, first_page, last_page, folder_name):
     print("Extracting all urls...")
     urls = get_all_urls(main_url, first_page, last_page)
     print("URLs have been extracted (" + str(len(urls)) + ")")
-    print("Starting to download images...")
+    print("Downloading images...")
     download_all(urls, folder_name)
-    print("Downloaded all")
+    print("Downloaded")
 
     save_count()

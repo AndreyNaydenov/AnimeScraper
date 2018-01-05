@@ -22,7 +22,7 @@ def img_download(url, folder, filename):
     except ValueError:
         print("Value error. Url: " + str(url))
         return
-    if len(folder) == 0:
+    if not folder:
         folder_path = "./"
     else:
         folder_path = "./" + folder + "/"
@@ -40,9 +40,11 @@ def download_all_images(urls, folder):
     """
     count = get_count()
 
+    print("Downloading images...")
     for url in urls:
         img_download(url, folder, str(count))
         count += 1
+    print("Downloaded")
     save_count(count)
 
 def get_count():

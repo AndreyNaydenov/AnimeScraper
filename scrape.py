@@ -14,8 +14,9 @@ def main():
         urls = zerochan.get_all_urls(main_url, first_page, last_page)
         utils.download_all_images(urls, folder)
     elif "safebooru.org" in main_url:
-        #safebooru
-        pass
+        posts = safebooru.get_all_posts(main_url, first_page, last_page)
+        urls = safebooru.posts_to_pic_urls(posts)
+        utils.download_all_images(urls, folder)
     else:
         print("Wrong arguments")
         exit()

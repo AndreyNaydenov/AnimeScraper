@@ -24,7 +24,7 @@ def get_all_urls_on_page(main_url, number):
 
 def get_all_urls(main_url, first_page, last_page):
     if first_page < 1:
-        print("first page must be > 1")
+        print("first page must be >= 1")
         exit()
     urls = []
     n = first_page

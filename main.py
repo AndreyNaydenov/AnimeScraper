@@ -1,4 +1,4 @@
-import scrape
+from zerochan import main
 import sys
 
 if len(sys.argv) != 5:
@@ -17,4 +17,4 @@ except Exception:
 
 folder = "images/" + sys.argv[4]
 
-scrape.main(main_url, first_page, last_page, folder)
+main(main_url, first_page, last_page, folder)

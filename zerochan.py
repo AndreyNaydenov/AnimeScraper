@@ -7,6 +7,8 @@ count = 0
 url = ""
 
 def get_count():
+    """kek"""
+    
     global count
     with open("count") as f:
         content = f.read()

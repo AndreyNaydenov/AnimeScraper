@@ -1,4 +1,4 @@
-"""Module with utils to download images."""
+"""Module with utils to image scrape project."""
 from urllib.request import urlopen
 from urllib.error import HTTPError
 import os

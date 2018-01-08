@@ -1,1 +1,1 @@
-#This is a python script that downloads pictures from zerochan.net
+#This is a python script that downloads pictures from zerochan.net or safebooru.org
